@@ -1,3 +1,5 @@
 node_modules
 .vscode
-  git remote add BookMovieApp https://github.com/fuzumoe/BookMovieApp.git
+src/authContext.js
+src/authReducer.js
+src/App.js
