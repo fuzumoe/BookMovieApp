@@ -1,0 +1,3 @@
+node_modules
+.vscode
+  git remote add BookMovieApp https://github.com/fuzumoe/BookMovieApp.git
