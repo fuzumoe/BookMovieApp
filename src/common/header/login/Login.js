@@ -19,7 +19,7 @@ const Login = (props) => {
   };
 
   return (
-    <Fragment>
+    <div className="center">
       <FormControl required>
         <InputLabel htmlFor="username">Username</InputLabel>
         <Input
@@ -56,7 +56,7 @@ const Login = (props) => {
       <Button variant="contained" color="primary" onClick={loginClickHandler}>
         LOGIN
       </Button>
-    </Fragment>
+    </div>
   );
 };
 

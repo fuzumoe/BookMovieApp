@@ -7,7 +7,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 import "./Register.css";
 
-const Login = (props) => {
+const Register = (props) => {
     
   const registerClickHandler = () => {
     console.log("not yet implemented");
@@ -31,7 +31,7 @@ const Login = (props) => {
   
 
   return (
-    <Fragment>
+    <div className="center">
       <FormControl required>
         <InputLabel htmlFor="firstname">First Name</InputLabel>
         <Input
@@ -118,8 +118,8 @@ const Login = (props) => {
       >
         REGISTER
       </Button>
-    </Fragment>
+    </div>
   );
 };
 
-export default Login;
+export default Register;

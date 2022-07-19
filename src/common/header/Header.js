@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 
 import "./Header.css";
+
+
 import logo from "../../assets/logo.svg";
-import Modal from './modal/Modal'
+import CustomModal from './CustomModal/CustomModal'
 
 const Header = () => {
   const dispatch = useDispatch();
-  const [modalIsOpen, setmodalIsOpen] = useState(false);
+  const [modalIsOpen, setmodalIsOpen] = useState(true);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
  
 
@@ -60,7 +62,7 @@ const Header = () => {
           </div>
         )}
       </nav>
-      <Modal modalIsOpen={modalIsOpen} onClose={{modalCloseHandler}}/> 
+      <CustomModal modalIsOpen={modalIsOpen} onClose={{modalCloseHandler}}/> 
 
     </header>
   );
