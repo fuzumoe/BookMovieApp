@@ -1,12 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 
 import "./Header.css";
 import logo from "../../assets/logo.svg";
 
-const Header = (props) => {
-  const modalOpenHandler = (event) => { console.log('not yet implemented')};
-  const logoutHandler = (event) => {console.log('not yet implemented')};
+const Header = () => {
+  const isLoggedIn = useSelector(state => state.isLoggedIn)
+  
+  const modalOpenHandler = (event) => {
+    console.log("not yet implemented");
+  };
+  const logoutHandler = (event) => {
+    console.log("not yet implemented");
+  };
 
   return (
     <header>
