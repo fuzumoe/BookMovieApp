@@ -1,19 +1,30 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 
 import "./Header.css";
 import logo from "../../assets/logo.svg";
+import Modal from './modal/Modal'
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const [modalIsOpen, setmodalIsOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+ 
 
   const modalOpenHandler = (event) => {
-    console.log("not yet implemented");
+    console.log("modal opening");
+    setmodalIsOpen(true);
+  };
+  const modalCloseHandler = (event) => {
+    console.log("modal closing");
+    setmodalIsOpen(false);
   };
   const logoutHandler = (event) => {
     console.log("not yet implemented");
   };
+  
 
   return (
     <header>
@@ -49,8 +60,14 @@ const Header = () => {
           </div>
         )}
       </nav>
+      <Modal modalIsOpen={modalIsOpen} onClose={{modalCloseHandler}}/> 
+
     </header>
   );
 };
+
+
+
+
 
 export default Header;
