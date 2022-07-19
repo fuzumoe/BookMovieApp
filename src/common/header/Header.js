@@ -6,8 +6,8 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 
 const Header = () => {
-  const isLoggedIn = useSelector(state => state.isLoggedIn)
-  
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
   const modalOpenHandler = (event) => {
     console.log("not yet implemented");
   };
@@ -19,29 +19,35 @@ const Header = () => {
     <header>
       <nav className="app-header">
         <img src={logo} className="app-logo" alt="Movies App Logo" />
-        <div className="login-button">
-          <Button
-            variant="contained"
-            color="default"
-            onClick={modalOpenHandler}
-          >
-            Login
-          </Button>
-        </div>
-        <div className="login-button">
-          <Button variant="contained" color="default" onClick={logoutHandler}>
-            Logout
-          </Button>
-        </div>
-        <div className="bookshow-button">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={modalOpenHandler}
-          >
-            Book Show
-          </Button>
-        </div>
+        {!isLoggedIn && (
+          <div className="login-button">
+            <Button
+              variant="contained"
+              color="default"
+              onClick={modalOpenHandler}
+            >
+              Login
+            </Button>
+          </div>
+        )}
+        {isLoggedIn && (
+          <div className="login-button">
+            <Button variant="contained" color="default" onClick={logoutHandler}>
+              Logout
+            </Button>
+          </div>
+        )}
+        {isLoggedIn && (
+          <div className="bookshow-button">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={modalOpenHandler}
+            >
+              Book Show
+            </Button>
+          </div>
+        )}
       </nav>
     </header>
   );
