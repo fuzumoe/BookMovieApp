@@ -5,8 +5,8 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 
 const Header = (props) => {
-  const modalOpenHandler = (event) => { console.log("not yet implemented")};
-  const logoutHandler = (event) => {console.log("not yet implemented")};
+  const modalOpenHandler = (event) => { console.log('not yet implemented')};
+  const logoutHandler = (event) => {console.log('not yet implemented')};
 
   return (
     <header>
