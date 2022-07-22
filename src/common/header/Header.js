@@ -13,7 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const [modalIsOpen, setmodalIsOpen] = useState(true);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
- 
+
 
   const modalOpenHandler = (event) => {
     console.log("modal opening");
@@ -26,7 +26,7 @@ const Header = () => {
   const logoutHandler = (event) => {
     console.log("not yet implemented");
   };
-  
+
 
   return (
     <header>
@@ -62,14 +62,14 @@ const Header = () => {
           </div>
         )}
       </nav>
-      <CustomModal modalIsOpen={modalIsOpen} onClose={{modalCloseHandler}}/> 
+      <CustomModal modalIsOpen={modalIsOpen} onRequestClose={modalCloseHandler}/>
 
     </header>
-  );
-};
+    );
+  };
 
 
 
 
 
-export default Header;
+  export default Header;

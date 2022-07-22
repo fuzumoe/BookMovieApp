@@ -1,61 +1,114 @@
-import React, { Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
-
+import { validateForm, isFormValid } from "../../validator";
 import "./Register.css";
 
-const Register = (props) => {
-    
-  const registerClickHandler = () => {
-    console.log("not yet implemented");
+const initialFormDataState = {
+  firstName: {
+    value: "",
+    isValid: false,
+    isDirty: false,
+  },
+  lastName: {
+    value: "",
+    isValid: false,
+    isDirty: false,
+  },
+  email: {
+    value: "",
+    isValid: false,
+    isDirty: false,
+  },
+  password: {
+    value: "",
+    isValid: false,
+    isDirty: false,
+  },
+  contact: {
+    value: "",
+    isValid: false,
+    isDirty: false,
+  },
+};
+
+const Register = () => {
+  const [formData, setFormData] = useState(initialFormDataState);
+  const [regStatus, setRegStatus] = useState(0);
+  const [formIsValid, setFormIsValid] = useState(false);
+
+  useEffect(() => {
+    setFormIsValid(!isFormValid(formData));
+  }, [formData]);
+
+  const registerClickHandler = (event) => {
+    setFormData(validateForm(formData, null));
+    if (!formIsValid) {
+      setRegStatus(-1);
+    }
+    if (formIsValid) {
+    }
   };
-  const inputFirstNameChangeHandler = () => {
-    console.log("not yet implemented");
+
+  const inputOnChangeAndOnBlurHandler = (event) => {
+
+    setFormData({
+      ...formData,
+      [event.target.name]: {
+        ...validateForm(
+            null,
+            { name: event.target.name, value: event.target.value },
+
+        ),
+      },
+    });
   };
-  const inputLastNameChangeHandler = () => {
-    console.log("not yet implemented");
-  };
-  const inputEmailChangeHandler = () => {
-    console.log("not yet implemented");
-  };
-  const inputRegisterPasswordChangeHandler = () => {
-    console.log("not yet implemented");
-  };
-  const inputContactChangeHandler = () => {
-    console.log("not yet implemented");
-  };
-  
-  
 
   return (
     <div className="center">
       <FormControl required>
-        <InputLabel htmlFor="firstname">First Name</InputLabel>
+        <InputLabel htmlFor="firstName">First Name</InputLabel>
         <Input
-          id="firstname"
+          id="firstName"
+          name="firstName"
           type="text"
-          firstname={props.firstname}
-          onChange={inputFirstNameChangeHandler}
+          value={formData.firstName.value}
+          onBlur={inputOnChangeAndOnBlurHandler}
+          onChange={inputOnChangeAndOnBlurHandler}
         />
-        <FormHelperText className={props.firstnameRequired}>
-          <span className="red">required</span>
+        <FormHelperText
+          className={
+            !formData.firstName.isValid && formData.firstName.isDirty
+              ? ""
+              : "no-display"
+          }
+        >
+          <span className="red"> First name must not be empty</span>
         </FormHelperText>
       </FormControl>
       <br />
       <br />
       <FormControl required>
-        <InputLabel htmlFor="lastname">Last Name</InputLabel>
+        <InputLabel htmlFor="lastName">Last Name</InputLabel>
         <Input
-          id="lastname"
+          id="lastName"
+          name="lastName"
           type="text"
-          lastname={props.lastname}
-          onChange={inputLastNameChangeHandler}
+          value={formData.lastName.value}
+          onBlur={inputOnChangeAndOnBlurHandler}
+          onChange={inputOnChangeAndOnBlurHandler}
         />
-        <FormHelperText className={props.lastnameRequired}>
-          <span className="red">required</span>
+        <FormHelperText
+          className={
+            !formData.lastName.isValid && formData.lastName.isDirty
+              ? ""
+              : "no-display"
+          }
+        >
+          <span className="red"> Last name must not be empty</span>
         </FormHelperText>
       </FormControl>
       <br />
@@ -64,26 +117,42 @@ const Register = (props) => {
         <InputLabel htmlFor="email">Email</InputLabel>
         <Input
           id="email"
+          name="email"
           type="text"
-          email={props.email}
-          onChange={inputEmailChangeHandler}
+          value={formData.email.value}
+          onBlur={inputOnChangeAndOnBlurHandler}
+          onChange={inputOnChangeAndOnBlurHandler}
         />
-        <FormHelperText className={props.emailRequired}>
-          <span className="red">required</span>
+        <FormHelperText
+          className={
+            !formData.email.isValid && formData.email.isDirty
+              ? ""
+              : "no-display"
+          }
+        >
+          <span className="red">A valid email is required here</span>
         </FormHelperText>
       </FormControl>
       <br />
       <br />
       <FormControl required>
-        <InputLabel htmlFor="registerPassword">Password</InputLabel>
+        <InputLabel htmlFor="password">Password</InputLabel>
         <Input
-          id="registerPassword"
+          id="password"
+          name="password"
           type="password"
-          registerpassword={props.registerPassword}
-          onChange={inputRegisterPasswordChangeHandler}
+          value={formData.password.value}
+          onBlur={inputOnChangeAndOnBlurHandler}
+          onChange={inputOnChangeAndOnBlurHandler}
         />
-        <FormHelperText className={props.registerPasswordRequired}>
-          <span className="red">required</span>
+        <FormHelperText
+          className={
+            !formData.password.isValid && formData.password.isDirty
+              ? ""
+              : "no-display"
+          }
+        >
+          <span className="red">Password must be of 8 characters</span>
         </FormHelperText>
       </FormControl>
       <br />
@@ -92,20 +161,36 @@ const Register = (props) => {
         <InputLabel htmlFor="contact">Contact No.</InputLabel>
         <Input
           id="contact"
+          name="contact"
           type="text"
-          contact={props.contact}
-          onChange={inputContactChangeHandler}
+          value={formData.contact.value}
+          onBlur={inputOnChangeAndOnBlurHandler}
+          onChange={inputOnChangeAndOnBlurHandler}
         />
-        <FormHelperText className={props.contactRequired}>
-          <span className="red">required</span>
+        <FormHelperText
+          className={
+            !formData.contact.isValid && formData.contact.isDirty
+              ? ""
+              : "no-display"
+          }
+        >
+          <span className="red">Contact number must be valid</span>
         </FormHelperText>
       </FormControl>
       <br />
       <br />
-      {props.registrationSuccess === true && (
+      {regStatus === 1 && (
         <FormControl>
           <span className="successText">
-            Registration Successful. Please Login!
+            Registration was Successful! you can go a head and login.
+          </span>
+        </FormControl>
+      )}
+
+      {regStatus === -1 && (
+        <FormControl>
+          <span className="errorText">
+            The registration form is not filled properly
           </span>
         </FormControl>
       )}
