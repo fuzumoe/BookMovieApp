@@ -15,14 +15,13 @@ export const validator = (value, field) => {
         return true
     }
     if (field === 'password') {
-        if (!value || value.length < 7 || value.trim() === '') {
+        if (!value || value.length === 0 || value.trim() === '') {
             return false
         }
         return true;
     }
     if (field === 'contact') {
-        const re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
-        if (!value || !re.test(value)) {
+        if (!value || value.length === 0 || value.trim() === '') {
             return false
         }
         return true

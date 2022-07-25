@@ -139,7 +139,7 @@ const Register = () => {
               : "no-display"
           }
         >
-          <span className="red"> First name must not be empty</span>
+          <span className="red">required</span>
         </FormHelperText>
       </FormControl>
       <br />
@@ -161,7 +161,7 @@ const Register = () => {
               : "no-display"
           }
         >
-          <span className="red"> Last name must not be empty</span>
+          <span className="red">required</span>
         </FormHelperText>
       </FormControl>
       <br />
@@ -183,7 +183,7 @@ const Register = () => {
               : "no-display"
           }
         >
-          <span className="red">A valid email is required here</span>
+          <span className="red">required</span>
         </FormHelperText>
       </FormControl>
       <br />
@@ -205,7 +205,7 @@ const Register = () => {
               : "no-display"
           }
         >
-          <span className="red">Password must be of 8 characters</span>
+          <span className="red">required</span>
         </FormHelperText>
       </FormControl>
       <br />
@@ -227,7 +227,7 @@ const Register = () => {
               : "no-display"
           }
         >
-          <span className="red">Contact number must be valid</span>
+          <span className="red">required</span>
         </FormHelperText>
       </FormControl>
       <br />
