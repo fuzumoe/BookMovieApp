@@ -5,6 +5,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { validateForm, isFormValid } from "../../validator";
+
 import "./Register.css";
 
 const initialFormDataState = {
@@ -34,23 +35,73 @@ const initialFormDataState = {
     isDirty: false,
   },
 };
-
+const regStatusInitial = {
+    code: 0,
+    message: ""
+}
 const Register = () => {
   const [formData, setFormData] = useState(initialFormDataState);
-  const [regStatus, setRegStatus] = useState(0);
+  const [regStatus, setRegStatus] = useState(regStatusInitial);
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
     setFormIsValid(!isFormValid(formData));
   }, [formData]);
 
-  const registerClickHandler = (event) => {
-    setFormData(validateForm(formData, null));
-    if (!formIsValid) {
-      setRegStatus(-1);
-    }
-    if (formIsValid) {
-    }
+  const registerClickHandler = async (event) => {
+      setFormData(validateForm(formData, null));
+
+      if (!formIsValid) {
+          setRegStatus({
+              code: -1,
+              message: "The registration form is not filled properly"
+          });
+      }
+      if (formIsValid) {
+
+
+          const header = new Headers();
+          header.append("Accept", " application/json");
+          header.append("Content-Type", "application/json;charset=UTF-8");
+          const params = {
+              email_address: formData.firstName.value,
+              first_name: formData.lastName.value,
+              last_name: formData.email.value,
+              mobile_number: formData.password.value,
+              password: formData.contact.value
+          }
+          try {
+              const baseUrl = 'http://127.0.0.1:8085'
+              const rawResponse = await fetch(`${baseUrl}/api/v1/signup`, {
+                  body: JSON.stringify(params),
+                  method: 'POST',
+                  headers: header,
+                  redirect: 'follow'
+              });
+
+              const result = await rawResponse.json();
+
+              if(rawResponse.ok) {
+                  setRegStatus({
+                      code: 1,
+                      messae: "sign up was successful, please proceed and sign in"
+                  });
+              } else {
+                  const error = new Error();
+                  error.message = result.message || 'Something went wrong.';
+
+
+                  throw error;
+              }
+          } catch(e) {
+              setRegStatus({
+
+                  code:-2,
+                  message: e.message,
+
+              });
+          }
+      }
   };
 
   const inputOnChangeAndOnBlurHandler = (event) => {
@@ -67,7 +118,8 @@ const Register = () => {
     });
   };
 
-  return (
+
+    return (
     <div className="center">
       <FormControl required>
         <InputLabel htmlFor="firstName">First Name</InputLabel>
@@ -179,7 +231,7 @@ const Register = () => {
       </FormControl>
       <br />
       <br />
-      {regStatus === 1 && (
+      {regStatus.code === 1 && (
         <FormControl>
           <span className="successText">
             Registration was Successful! you can go a head and login.
@@ -187,13 +239,14 @@ const Register = () => {
         </FormControl>
       )}
 
-      {regStatus === -1 && (
+      {regStatus.code < 0 && (
         <FormControl>
           <span className="errorText">
-            The registration form is not filled properly
+            {regStatus.message}
           </span>
         </FormControl>
       )}
+
       <br />
       <br />
       <Button

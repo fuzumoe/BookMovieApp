@@ -6,7 +6,25 @@ export const SET_USER = 'SET_USER';
 
 export const authState = {
   isLoggedIn: false,
-  user: {},
+  user: {
+      "email_address": "string",
+      "first_name": "string",
+      "id": "string",
+      "last_login_time": {},
+      "last_name": "string",
+      "mobile_phone": "string",
+      "role": {
+          "id": 0,
+          "name": "string",
+          "permissions": [
+              {
+                  "id": 0,
+                  "name": "string"
+              }
+          ]
+      },
+      "status": "string"
+  },
 };
 
 export const authReducer = (state=authState, action) => {

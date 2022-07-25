@@ -15,11 +15,10 @@ export const validator = (value, field) => {
         return true
     }
     if (field === 'password') {
-        const re = /^(?=.*\d).{8,}$/
-        if (!value || !re.test(value)) {
+        if (!value || value.length < 7 || value.trim() === '') {
             return false
         }
-        return true
+        return true;
     }
     if (field === 'contact') {
         const re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
@@ -46,6 +45,7 @@ export const validateForm = (formElements, formElement = null) => {
                 isDirty: isDirty,
             }
         })
+        console.log(newFormElements)
         return newFormElements;
     }
     if (formElement != null) {
@@ -61,7 +61,7 @@ export const validateForm = (formElements, formElement = null) => {
 export const isFormValid = (formElements) =>{
     const formIsValid = Object.values(formElements)
         .map((obj) => {
-            return obj.isValid && obj.isDirty;
+            return !obj.isValid && obj.isDirty;
         })
         .includes(false);
     return !formIsValid;

@@ -3,3 +3,4 @@ node_modules
 src/authContext.js
 src/authReducer.js
 src/App.js
+src/common/auth.js
