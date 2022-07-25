@@ -7,9 +7,7 @@ export const validator = (value, field) => {
     }
 
     if (field === 'email') {
-        /* eslint-disable no-useless-escape */
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        if (!value || !re.test(String(value).toLowerCase())) {
+        if (!value || value.length === 0 || value.trim() === '') {
             return false
         }
         return true
