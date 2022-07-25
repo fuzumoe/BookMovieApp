@@ -35,13 +35,14 @@ const initialFormDataState = {
     isDirty: false,
   },
 };
-const regStatusInitial = {
+const InitialRegStatus = {
     code: 0,
     message: ""
 }
+
 const Register = () => {
   const [formData, setFormData] = useState(initialFormDataState);
-  const [regStatus, setRegStatus] = useState(regStatusInitial);
+  const [regStatus, setRegStatus] = useState(InitialRegStatus);
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
@@ -58,11 +59,6 @@ const Register = () => {
           });
       }
       if (formIsValid) {
-
-
-          const header = new Headers();
-          header.append("Accept", " application/json");
-          header.append("Content-Type", "application/json;charset=UTF-8");
           const params = {
               email_address: formData.firstName.value,
               first_name: formData.lastName.value,
@@ -70,6 +66,11 @@ const Register = () => {
               mobile_number: formData.password.value,
               password: formData.contact.value
           }
+          const header = new Headers();
+
+          header.append("Accept", " application/json");
+          header.append("Content-Type", "application/json;charset=UTF-8");
+
           try {
               const baseUrl = 'http://127.0.0.1:8085'
               const rawResponse = await fetch(`${baseUrl}/api/v1/signup`, {
@@ -84,7 +85,7 @@ const Register = () => {
               if(rawResponse.ok) {
                   setRegStatus({
                       code: 1,
-                      messae: "sign up was successful, please proceed and sign in"
+                      message: "sign up was successful, please proceed and sign in"
                   });
               } else {
                   const error = new Error();
@@ -231,22 +232,13 @@ const Register = () => {
       </FormControl>
       <br />
       <br />
-      {regStatus.code === 1 && (
+      {regStatus.code !== 0 && (
         <FormControl>
-          <span className="successText">
-            Registration was Successful! you can go a head and login.
+          <span className={regStatus.code < 0 ? "errorText" : regStatus.code > 0 ? "successText" : ""}>
+              {regStatus.message}
           </span>
         </FormControl>
       )}
-
-      {regStatus.code < 0 && (
-        <FormControl>
-          <span className="errorText">
-            {regStatus.message}
-          </span>
-        </FormControl>
-      )}
-
       <br />
       <br />
       <Button

@@ -1,30 +1,28 @@
-import React from "react";
-import { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import React, {Fragment} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import Button from "@material-ui/core/Button";
+import {SET_AUTH, SET_USER, OPEN_MODAL} from "../../reducers/authReducer"
+import CustomModal from './CustomModal/CustomModal'
 
+import logo from "../../assets/logo.svg";
 import "./Header.css";
 
 
-import logo from "../../assets/logo.svg";
-import CustomModal from './CustomModal/CustomModal'
 
 const Header = () => {
   const dispatch = useDispatch();
-  const [modalIsOpen, setmodalIsOpen] = useState(true);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
-
   const modalOpenHandler = (event) => {
-    console.log("modal opening");
-    setmodalIsOpen(true);
+    dispatch({type: OPEN_MODAL, payload: true});
   };
-  const modalCloseHandler = (event) => {
-    console.log("modal closing");
-    setmodalIsOpen(false);
-  };
+
   const logoutHandler = (event) => {
-    console.log("not yet implemented");
+    window.sessionStorage.removeItem('user-details');
+    window.sessionStorage.removeItem('access-token');
+    dispatch({type: SET_USER, payload: {}})
+    dispatch({type: SET_AUTH, payload: false});
+    dispatch({type: OPEN_MODAL, payload: false});
   };
 
 
@@ -44,13 +42,13 @@ const Header = () => {
           </div>
         )}
         {isLoggedIn && (
+            <Fragment>
           <div className="login-button">
             <Button variant="contained" color="default" onClick={logoutHandler}>
               Logout
             </Button>
           </div>
-        )}
-        {isLoggedIn && (
+
           <div className="bookshow-button">
             <Button
               variant="contained"
@@ -60,9 +58,10 @@ const Header = () => {
               Book Show
             </Button>
           </div>
+            </Fragment>
         )}
       </nav>
-      <CustomModal modalIsOpen={modalIsOpen} onRequestClose={modalCloseHandler}/>
+      <CustomModal/>
 
     </header>
     );

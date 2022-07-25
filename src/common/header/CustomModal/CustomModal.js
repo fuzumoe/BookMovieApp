@@ -1,8 +1,9 @@
-import { AppBar } from "@material-ui/core";
-import * as React from "react";
-
+import React  from "react";
+import {useDispatch, useSelector} from "react-redux";
 import Modal from "react-modal";
+import {AppBar}  from "@material-ui/core";
 import TabPanel from  '../tabpanel/TabPanel';
+import {OPEN_MODAL} from "../../../reducers/authReducer";
 
 import "./CustomModal.css";
 
@@ -19,15 +20,21 @@ const style = {
 };
 
 const CustomModal = (props) => {
-  return (  
-  
+  const dispatch = useDispatch();
+  const openModal = useSelector((state) => state.openModal);
+
+  const modalCloseHandler = (event) => {
+    dispatch({type: OPEN_MODAL, payload: false});
+  };
+  return (
+
   <AppBar position="static" color="primary" style={{ position: 'fixed'}}>
 
       <Modal
         ariaHideApp={false}
-        isOpen={props.modalIsOpen}
+        isOpen={openModal}
         contentLabel="Login"
-        onRequestClose={props.handleClose}
+        onRequestClose={modalCloseHandler}
         style={style}
       >
         <TabPanel />
