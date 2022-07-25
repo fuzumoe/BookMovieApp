@@ -113,14 +113,6 @@ const Login = (props) => {
                     onBlur={inputOnChangeAndOnBlurHandler}
                     onChange={inputOnChangeAndOnBlurHandler}
                 />
-                <FormHelperText
-                    className={
-                        !formData.email.isValid && formData.email.isDirty
-                            ? ""
-                            : "no-display"
-                    }>
-                    <span className="red">email address as a user is required here</span>
-                </FormHelperText>
             </FormControl>
             <br/>
             <br/>
@@ -134,14 +126,6 @@ const Login = (props) => {
                     onBlur={inputOnChangeAndOnBlurHandler}
                     onChange={inputOnChangeAndOnBlurHandler}
                 />
-                <FormHelperText
-                    className={
-                        !formData.password.isValid && formData.password.isDirty
-                            ? ""
-                            : "no-display"
-                    }>
-                    <span className="red">password must not be empty</span>
-                </FormHelperText>
             </FormControl>
             <br/>
             <br/>

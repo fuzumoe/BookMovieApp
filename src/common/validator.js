@@ -7,22 +7,19 @@ export const validator = (value, field) => {
     }
 
     if (field === 'email') {
-        /* eslint-disable no-useless-escape */
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        if (!value || !re.test(String(value).toLowerCase())) {
+        if (!value || value.length === 0 || value.trim() === '') {
             return false
         }
         return true
     }
     if (field === 'password') {
-        if (!value || value.length < 7 || value.trim() === '') {
+        if (!value || value.length === 0 || value.trim() === '') {
             return false
         }
         return true;
     }
     if (field === 'contact') {
-        const re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
-        if (!value || !re.test(value)) {
+        if (!value || value.length === 0 || value.trim() === '') {
             return false
         }
         return true
