@@ -19,6 +19,7 @@ const getSessionUserDetails = () => {
 }
 export const authState = {
     openModal: false,
+    showBookShowBtn: false,
     isLoggedIn: getIsLoggedInStatus(),
     user: getSessionUserDetails(),
 };

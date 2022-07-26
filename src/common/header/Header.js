@@ -12,10 +12,13 @@ import "./Header.css";
 const Header = (props) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const showBookShowBtn = useSelector((state) => state.showBookShowBtn);
 
   const modalOpenHandler = (event) => {
     dispatch({type: OPEN_MODAL, payload: true});
   };
+
+
 
   const logoutHandler = (event) => {
     window.sessionStorage.removeItem('user-details');
@@ -41,14 +44,15 @@ const Header = (props) => {
             </Button>
           </div>
         )}
-        {isLoggedIn && (
-            <Fragment>
+        {isLoggedIn  && (
+
           <div className="login-button">
             <Button variant="contained" color="default" onClick={logoutHandler}>
               Logout
             </Button>
           </div>
-
+          )}
+          {(showBookShowBtn && isLoggedIn) && (
           <div className="bookshow-button">
             <Button
               variant="contained"
@@ -58,7 +62,7 @@ const Header = (props) => {
               Book Show
             </Button>
           </div>
-            </Fragment>
+
         )}
       </nav>
       <CustomModal baseUrl={props.baseUrl}/>
