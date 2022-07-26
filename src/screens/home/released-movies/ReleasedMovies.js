@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import FindMoviesForm from "../find-movies-form/FindMoviesForm";
 
 const styles = theme => ({
     root: {
@@ -47,14 +48,43 @@ const ReleasedMovies = (props) => {
         fetchData().catch(console.error);
     }, [])
 
+    const getFilterQueryFromForm = (formData) => {
+        let queryString = "status=RELEASED"
 
+        for (const key in formData) {
+            if ((key === 'artists' || key === 'genres') && formData[key].length > 0)
+                queryString += `&${key}=` + formData[key].value.toString();
+            if ((key !== 'artists' && key !== 'genres') && formData[key].value !== "")
+                queryString += `&${key}=` + formData[key].value;
+        }
+        return queryString;
+    }
+    const filterHandler = (formData) => {
+        const filters = getFilterQueryFromForm(formData);
+        const baseUrl = `${props.baseUrl}movies?${filters}`;
+        const header = new Headers();
+
+        header.append("Accept", " application/json");
+        header.append("Content-Type", "application/json;charset=UTF-8");
+        const fetchData = async () => {
+            const rawResponse = await fetch(baseUrl, {method: 'GET', headers: header,});
+            const result = await rawResponse.json();
+            setReleasedMovies(result["movies"]);
+        }
+        fetchData().catch(console.error);
+
+    }
+
+    const movieClickHandler = (movieId) => {
+        console.log("not yet implemented")
+    }
     return (
         <div className={classes.root}>
             <div className="container">
                 <div className="left">
                     <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                         {releasedMovies.map(movie => (
-                            <GridListTile
+                            <GridListTile onClick={() => movieClickHandler(movie.id)}
                                           className="released-movie-grid-item" key={"grid" + movie.id}>
                                 <img src={movie.poster_url} className="movie-poster" alt={movie.title}/>
                                 <GridListTileBar
@@ -67,7 +97,11 @@ const ReleasedMovies = (props) => {
                     </GridList>
                 </div>
                 <div className="right">
-
+                    <Card>
+                        <CardContent>
+                            <FindMoviesForm baseUrl={props.baseUrl} filterHandler={filterHandler}/>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         </div>
