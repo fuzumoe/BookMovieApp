@@ -9,7 +9,7 @@ import "./Header.css";
 
 
 
-const Header = () => {
+const Header = (props) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
@@ -61,7 +61,7 @@ const Header = () => {
             </Fragment>
         )}
       </nav>
-      <CustomModal/>
+      <CustomModal baseUrl={props.baseUrl}/>
 
     </header>
     );

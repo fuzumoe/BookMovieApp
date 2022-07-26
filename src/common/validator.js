@@ -42,7 +42,6 @@ export const validateForm = (formElements, formElement = null) => {
                 isDirty: isDirty,
             }
         })
-        console.log(newFormElements)
         return newFormElements;
     }
     if (formElement != null) {

@@ -40,7 +40,7 @@ const InitialRegStatus = {
     message: ""
 }
 
-const Register = () => {
+const Register = (props) => {
   const [formData, setFormData] = useState(initialFormDataState);
   const [regStatus, setRegStatus] = useState(InitialRegStatus);
   const [formIsValid, setFormIsValid] = useState(false);
@@ -72,8 +72,7 @@ const Register = () => {
           header.append("Content-Type", "application/json;charset=UTF-8");
 
           try {
-              const baseUrl = 'http://127.0.0.1:8085'
-              const rawResponse = await fetch(`${baseUrl}/api/v1/signup`, {
+              const rawResponse = await fetch(`${props.baseUrl}/signup`, {
                   body: JSON.stringify(params),
                   method: 'POST',
                   headers: header,

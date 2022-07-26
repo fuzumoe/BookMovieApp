@@ -16,11 +16,10 @@ const TabContainer = (props) => {
   );
 };
 
-const TabPanel = () => {
+const TabPanel = (props) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleChange = (event, value) => {
-    console.log(value)
     setActiveTab(value);
   };
 
@@ -35,8 +34,8 @@ const TabPanel = () => {
         <Tab label="Register" />
       </Tabs>
 
-      {activeTab === 0 && <TabContainer><Login/></TabContainer>}
-      {activeTab === 1 && <TabContainer><Register/></TabContainer>}
+      {activeTab === 0 && <TabContainer><Login baseUrl={props.baseUrl} /></TabContainer>}
+      {activeTab === 1 && <TabContainer><Register baseUrl={props.baseUrl} /></TabContainer>}
     </Fragment>
   );
 };

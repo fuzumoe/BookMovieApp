@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import {validateForm, isFormValid} from "../../validator";
 import {SET_AUTH, SET_USER} from "../../../reducers/authReducer";
 
@@ -61,7 +60,6 @@ const Login = (props) => {
             });
         }
         if (formIsValid) {
-            const baseUrl = 'http://127.0.0.1:8085'
             try {
                 const params = window.btoa(`${formData.email.value}:${formData.password.value}`);
                 const header = new Headers();
@@ -70,7 +68,7 @@ const Login = (props) => {
                 header.append("Content-Type", "application/json;charset=UTF-8");
                 header.append("authorization", `Basic ${params}`);
 
-                const rawResponse = await fetch(`${baseUrl}/api/v1/auth/login`, {
+                const rawResponse = await fetch(`${props.baseUrl}auth/login`, {
                     body: JSON.stringify(params),
                     method: 'POST',
                     headers: header,
