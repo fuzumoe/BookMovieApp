@@ -8,12 +8,12 @@ import Confirmation from "../screens/confirmation/Confirmation";
 import Header from '../common/header/Header';
 
 const Controller = () => {
-  const baseUrl = "/api/v1/";
+  const baseUrl = `http://127.0.0.1:8085/api/v1/`;
 
   return (
     <Router>
       <div className="main-container">
-      <Header></Header>
+      <Header baseUrl={baseUrl}></Header>
         <Route
           exact
           path="/"

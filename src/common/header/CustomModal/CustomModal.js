@@ -37,7 +37,7 @@ const CustomModal = (props) => {
         onRequestClose={modalCloseHandler}
         style={style}
       >
-        <TabPanel />
+        <TabPanel baseUrl={props.baseUrl} />
       </Modal>
     </AppBar>
   );

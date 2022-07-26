@@ -9,7 +9,7 @@ import "./Header.css";
 
 
 
-const Header = () => {
+const Header = (props) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
@@ -22,7 +22,7 @@ const Header = () => {
     window.sessionStorage.removeItem('access-token');
     dispatch({type: SET_USER, payload: {}})
     dispatch({type: SET_AUTH, payload: false});
-    dispatch({type: OPEN_MODAL, payload: false});
+    dispatch({type: OPEN_MODAL, payload: true});
   };
 
 
@@ -61,7 +61,7 @@ const Header = () => {
             </Fragment>
         )}
       </nav>
-      <CustomModal/>
+      <CustomModal baseUrl={props.baseUrl}/>
 
     </header>
     );
