@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import {useDispatch} from "react-redux";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import {validateForm, isFormValid} from "../../validator";
 import {SET_AUTH, SET_USER} from "../../../reducers/authReducer";
 
 
@@ -14,13 +13,9 @@ import "./Login.css";
 const initialFormDataState = {
     email: {
         value: "",
-        isValid: false,
-        isDirty: false,
     },
     password: {
         value: "",
-        isValid: false,
-        isDirty: false,
     },
 }
 const initialLoginStatus = {
@@ -30,36 +25,20 @@ const initialLoginStatus = {
 const Login = (props) => {
     const [formData, setFormData] = useState(initialFormDataState);
     const [loginStatus, setLoginStatus] = useState(initialLoginStatus);
-    const [formIsValid, setFormIsValid] = useState(false);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        setFormIsValid(!isFormValid(formData));
-    }, [formData]);
 
     const inputOnChangeAndOnBlurHandler = (event) => {
 
         setFormData({
             ...formData,
             [event.target.name]: {
-                ...validateForm(
-                    null,
-                    {name: event.target.name, value: event.target.value},
-                ),
+                 value: event.target.value
             },
         });
     };
 
     const loginClickHandler = async (event) => {
-        setFormData(validateForm(formData, null));
-        if (!formIsValid) {
-
-            setLoginStatus({
-                code: -1,
-                message: "The login form is not filled properly",
-            });
-        }
-        if (formIsValid) {
             try {
                 const params = window.btoa(`${formData.email.value}:${formData.password.value}`);
                 const header = new Headers();
@@ -78,7 +57,6 @@ const Login = (props) => {
                 const result = await rawResponse.json();
 
                 if (rawResponse.ok) {
-
                     window.sessionStorage.setItem('user-details', JSON.stringify(result));
                     window.sessionStorage.setItem('access-token', rawResponse.headers.get('access-token'))
 
@@ -95,7 +73,8 @@ const Login = (props) => {
                 setLoginStatus({ code:-2,  message: e.message,});
             }
 
-        }
+
+
     };
 
 

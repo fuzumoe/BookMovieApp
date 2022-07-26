@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {useState, useEffect} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -79,14 +79,14 @@ const ReleasedMovies = (props) => {
         console.log("not yet implemented")
     }
     return (
-        <div className={classes.root}>
-            <div className="container">
+        <Fragment className={classes.root}>
+            <div className="flex-container">
                 <div className="left">
                     <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                         {releasedMovies.map(movie => (
                             <GridListTile onClick={() => movieClickHandler(movie.id)}
                                           className="released-movie-grid-item" key={"grid" + movie.id}>
-                                <img src={movie.poster_url} className="movie-poster" alt={movie.title}/>
+                                <img src={movie.poster_url} className="poster" alt={movie.title}/>
                                 <GridListTileBar
                                     title={movie.title}
                                     subtitle={
@@ -104,7 +104,7 @@ const ReleasedMovies = (props) => {
                     </Card>
                 </div>
             </div>
-        </div>
+        </Fragment>
     )
 }
 

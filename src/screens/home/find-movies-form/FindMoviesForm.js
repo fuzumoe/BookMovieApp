@@ -1,5 +1,5 @@
-import React, {Fragment} from "react";
-import {useState, useEffect} from "react";
+import React  from "react";
+import {useState, useEffect, Fragment} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
@@ -85,7 +85,8 @@ const FindMoviesForm = (props) => {
 
     return (
 
-        <div>
+
+        <Fragment>
 
         <FormControl className={classes.formControl}>
                 <Typography className={classes.title} color="textSecondary">
@@ -183,7 +184,7 @@ const FindMoviesForm = (props) => {
                 </Button>
             </FormControl>
 
-        </div>
+        </Fragment>
     )
 }
 
