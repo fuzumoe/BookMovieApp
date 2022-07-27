@@ -4,9 +4,10 @@
 
 .left-details-container {
     width: 20%;
-    text-align: center;
 }
-
+.details-poster{
+    width: 90%;
+}
 .middle-details-container  {
     width: 60%;
 }
@@ -15,7 +16,7 @@
     width: 20%;
 }
 
-.marginTop16 {
+.m-top-16 {
     margin-top: 16px;
 }
 
@@ -24,21 +25,21 @@
     margin-bottom: 16px;
 }
 
-.bold {
+.bold-text {
     font-weight: bold;
 }
 
-.yellow {
+.yellow-star {
     color: yellow;
     cursor: pointer;
 }
 
-.black {
+.black-star  {
     color: none;
     cursor: pointer;
 }
 
-.trailerContainer {
+.trailer-container {
     margin: 16px 0px 16px 0px !important;
 }
 
@@ -64,6 +65,7 @@
 
 iframe {
     width: 100% !important;
+    height: 60vh;
 }
 
 @media (max-width: 992px) {

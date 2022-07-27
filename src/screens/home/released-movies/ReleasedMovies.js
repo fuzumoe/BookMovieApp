@@ -25,6 +25,7 @@ const styles = theme => ({
 
 const ReleasedMovies = (props) => {
     const {classes} = props;
+
     const [releasedMovies, setReleasedMovies] = useState([])
 
     useEffect(() => {
@@ -46,10 +47,9 @@ const ReleasedMovies = (props) => {
         let queryString = "status=RELEASED"
 
         for (const key in formData) {
-            if ((key === 'artists' || key === 'genres') && formData[key].value.length > 0){
-                console.log((key === 'artists' || key === 'genres') )
+            if ((key === 'artists' || key === 'genres') && formData[key].value.length > 0)
                 queryString += `&${key}=` + formData[key].value.toString();
-            }
+
             if ((key !== 'artists' && key !== 'genres') && formData[key].value !== "")
                 queryString += `&${key}=` + formData[key].value;
         }
@@ -57,7 +57,6 @@ const ReleasedMovies = (props) => {
     }
     const filterHandler = (formData) => {
         const filters = getFilterQueryFromForm(formData);
-        console.log(filters)
         const baseUrl = `${props.baseUrl}movies?${filters}`;
         const header = new Headers();
 
@@ -72,8 +71,13 @@ const ReleasedMovies = (props) => {
 
     }
 
-    const movieClickHandler = (movieId) => {
-        props.history.push('/movie/' + movieId)
+    const movieClickHandler = ( movie) => {
+
+
+        props.history.push({
+            pathname: '/movie/'+movie.id,
+            state: { movie: {...movie}},
+        });
     }
     return (
         <section>
@@ -81,7 +85,7 @@ const ReleasedMovies = (props) => {
                 <div className="left">
                     <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                         {releasedMovies.map(movie => (
-                            <GridListTile onClick={() => movieClickHandler(movie.id)}
+                            <GridListTile onClick={() => movieClickHandler(movie)}
                                           className="released-movie-grid-item" key={"grid" + movie.id}>
                                 <img src={movie.poster_url} className="poster" alt={movie.title}/>
                                 <GridListTileBar
