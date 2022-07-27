@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React  from "react";
 import {useState, useEffect} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -11,16 +11,24 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 const styles = theme => ({
+    card: {
+        paddingRight: 20,
+        marginLeft: 100,
+        margin: "auto",
+    },
     gridListMain: {
         transform: 'translateZ(0)',
         cursor: 'pointer'
     },
     formControl: {
+
         margin: theme.spacing.unit,
         minWidth: 240,
-        maxWidth: 240
+        maxWidth: 240,
     },
     title: {
         color: theme.palette.primary.light,
@@ -85,15 +93,16 @@ const FindMoviesForm = (props) => {
 
     return (
 
-        <div>
+
+        <Card className={classes.card}>
+            <CardContent>
 
         <FormControl className={classes.formControl}>
                 <Typography className={classes.title} color="textSecondary">
                     FIND MOVIES BY:
                 </Typography>
             </FormControl>
-            <br/>
-            <br/>
+                <br/><br/>
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="movieName">Movie Name</InputLabel>
                 <Input
@@ -103,8 +112,7 @@ const FindMoviesForm = (props) => {
                     onChange={inputOnChangeAndOnBlurHandler}
                 />
             </FormControl>
-            <br/>
-            <br/>
+                <br/><br/>
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="select-multiple-checkbox">Genres</InputLabel>
                 <Select
@@ -123,8 +131,7 @@ const FindMoviesForm = (props) => {
                     ))}
                 </Select>
             </FormControl>
-            <br/>
-            <br/>
+                <br/><br/>
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="select-multiple-checkbox">Artists</InputLabel>
                 <Select
@@ -144,15 +151,13 @@ const FindMoviesForm = (props) => {
                     ))}
                 </Select>
             </FormControl>
+                <br/><br/>
 
-            <br/>
-            <br/>
             <FormControl className={classes.formControl}>
                 <TextField
                     id="releaseDateStart"
                     label="Release Date Start"
                     type="date"
-                    defaultValue=""
                     name="start_date"
                     value={findFormData.start_date.value}
                     onChange={inputOnChangeAndOnBlurHandler}
@@ -160,14 +165,12 @@ const FindMoviesForm = (props) => {
                 />
             </FormControl>
 
-            <br/>
-            <br/>
+                <br/><br/>
             <FormControl className={classes.formControl}>
                 <TextField
                     id="releaseDateEnd"
                     label="Release Date End"
                     type="date"
-                    defaultValue=""
                     name="end_date"
                     InputLabelProps={{shrink: true}}
                     value={findFormData.end_date.value}
@@ -175,15 +178,15 @@ const FindMoviesForm = (props) => {
                 />
             </FormControl>
 
-            <br/>
-            <br/>
+            <br/><br/>
             <FormControl className={classes.formControl}>
                 <Button onClick={() => props.filterHandler(findFormData)} variant="contained" color="primary">
                     APPLY
                 </Button>
             </FormControl>
 
-        </div>
+            </CardContent>
+        </Card>
     )
 }
 

@@ -1,15 +1,14 @@
 export const SET_AUTH = 'SET_AUTH';
 export const SET_USER = 'SET_USER';
 export const OPEN_MODAL = 'OPEN_MODAL';
-
-const getIsLoggedInStatus = () => {
+export  const getIsLoggedInStatus = () => {
     if (sessionStorage.getItem("access-token") !== null) {
         return true;
     }
     return false;
 };
 
-const getSessionUserDetails = () => {
+export const getSessionUserDetails = () => {
     const userDetails = sessionStorage.getItem("user-details");
     if (userDetails !== null) {
         return userDetails;

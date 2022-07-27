@@ -51,7 +51,8 @@ const UpComingMovies = (props) => {
     }, [])
 
     return (
-        <div className={classes.root}>
+
+        <section>
             <div className={classes.upcomingMoviesHeading}>
                 <span>Upcoming Movies</span>
             </div>
@@ -65,7 +66,7 @@ const UpComingMovies = (props) => {
                 ))}
             </GridList>
 
-        </div>
+        </section>
 
     )
 }

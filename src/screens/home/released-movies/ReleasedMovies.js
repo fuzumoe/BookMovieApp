@@ -1,21 +1,14 @@
 import React from "react";
 import {useState, useEffect} from "react";
 import {withStyles} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import {  withRouter } from "react-router-dom";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import FindMoviesForm from "../find-movies-form/FindMoviesForm";
 
+
 const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
-    },
     gridListMain: {
         transform: 'translateZ(0)',
         cursor: 'pointer'
@@ -32,7 +25,9 @@ const styles = theme => ({
 
 const ReleasedMovies = (props) => {
     const {classes} = props;
+
     const [releasedMovies, setReleasedMovies] = useState([])
+
     useEffect(() => {
         const baseUrl = `${props.baseUrl}movies?status=RELEASED`;
         const header = new Headers();
@@ -52,8 +47,9 @@ const ReleasedMovies = (props) => {
         let queryString = "status=RELEASED"
 
         for (const key in formData) {
-            if ((key === 'artists' || key === 'genres') && formData[key].length > 0)
+            if ((key === 'artists' || key === 'genres') && formData[key].value.length > 0)
                 queryString += `&${key}=` + formData[key].value.toString();
+
             if ((key !== 'artists' && key !== 'genres') && formData[key].value !== "")
                 queryString += `&${key}=` + formData[key].value;
         }
@@ -75,18 +71,23 @@ const ReleasedMovies = (props) => {
 
     }
 
-    const movieClickHandler = (movieId) => {
-        console.log("not yet implemented")
+    const movieClickHandler = ( movie) => {
+
+
+        props.history.push({
+            pathname: '/movie/'+movie.id,
+            state: { movie: {...movie}},
+        });
     }
     return (
-        <div className={classes.root}>
-            <div className="container">
+        <section>
+            <div className="flex-container">
                 <div className="left">
                     <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                         {releasedMovies.map(movie => (
-                            <GridListTile onClick={() => movieClickHandler(movie.id)}
+                            <GridListTile onClick={() => movieClickHandler(movie)}
                                           className="released-movie-grid-item" key={"grid" + movie.id}>
-                                <img src={movie.poster_url} className="movie-poster" alt={movie.title}/>
+                                <img src={movie.poster_url} className="poster" alt={movie.title}/>
                                 <GridListTileBar
                                     title={movie.title}
                                     subtitle={
@@ -97,16 +98,13 @@ const ReleasedMovies = (props) => {
                     </GridList>
                 </div>
                 <div className="right">
-                    <Card>
-                        <CardContent>
-                            <FindMoviesForm baseUrl={props.baseUrl} filterHandler={filterHandler}/>
-                        </CardContent>
-                    </Card>
+
+                    <FindMoviesForm baseUrl={props.baseUrl} filterHandler={filterHandler}/>
+
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 
-
-export default withStyles(styles)(ReleasedMovies)
+export default withStyles(styles)(withRouter(ReleasedMovies));
