@@ -1,5 +1,5 @@
 import React from "react";
-import {useState, useEffect, Fragment} from "react";
+import {useState, useEffect} from "react";
 import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -52,7 +52,7 @@ const UpComingMovies = (props) => {
 
     return (
 
-        <Fragment className={classes.root}>
+        <section>
             <div className={classes.upcomingMoviesHeading}>
                 <span>Upcoming Movies</span>
             </div>
@@ -66,7 +66,7 @@ const UpComingMovies = (props) => {
                 ))}
             </GridList>
 
-        </Fragment>
+        </section>
 
     )
 }
