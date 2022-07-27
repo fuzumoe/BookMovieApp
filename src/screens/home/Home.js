@@ -8,7 +8,7 @@ import Header from "../../common/header/Header";
 const Home = (props) => {
   return (<Fragment>
 
-    <Header baseUrl={props.baseUrl}></Header>
+    <Header baseUrl={props.baseUrl} showBookShowButton={false}></Header>
     <UpComingMovies baseUrl={props.baseUrl}/>
     <ReleasedMovies baseUrl={props.baseUrl} />
   </Fragment>);

@@ -63,7 +63,7 @@ const Details = (props) => {
     }
     return (
         <div className="details">
-            <Header id={props.match.params.id} baseUrl={props.baseUrl} showBookShowButton="true"/>
+            <Header id={props.match.params.id} baseUrl={props.baseUrl} showBookShowButton={true}/>
             <div className="back">
                 <Typography>
                     <Link to="/">  &#60; Back to Home</Link>

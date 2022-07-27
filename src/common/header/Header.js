@@ -46,13 +46,14 @@ const Header = (props) => {
           </div>
         )}
         {isLoggedIn  && (
-        <Fragment>
+
           <div className="login-button">
             <Button variant="contained" color="default" onClick={logoutHandler}>
               Logout
             </Button>
           </div>
-
+          )}
+          {props.showBookShowButton  && (
           <div className="bookshow-button">
             <Link to={"/bookshow/" +  props.id}>
             <Button
@@ -63,7 +64,6 @@ const Header = (props) => {
             </Button>
             </Link>
           </div>
-        </Fragment>
         )}
       </nav>
       <CustomModal baseUrl={props.baseUrl}/>
